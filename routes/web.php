@@ -11,4 +11,12 @@
 |
 */
 
+Route::get('/monkey', function() {return "monkey";});
+
+Route::get('/all/{model}', 'CRUDController@index');
+
 Route::get('/{any}', 'SpaController@index')->where('any', '.*');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

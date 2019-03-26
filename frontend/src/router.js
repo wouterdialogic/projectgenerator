@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import About from './views/About.vue'
 import Lalala from './views/Lalala.vue'
+import Projects from './views/Projects.vue'
 
 Vue.use(Router)
 
@@ -13,6 +14,11 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/projects',
+      name: 'projects',
+      component: Projects
     },
     {
       path: '/about',
