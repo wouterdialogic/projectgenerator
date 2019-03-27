@@ -136,7 +136,7 @@ export default {
               classes: "",
               content: 'this is some random content: ' + i,
               width: Math.floor(Math.random() * 18) + 10 * 10,
-              height: Math.floor(Math.random() * 18) + 10 * 10,
+              height: Math.floor(Math.random() * 60) + 7 * 10,
           });
       }
 

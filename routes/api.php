@@ -23,31 +23,32 @@ Route::get('/mock', function (Request $request) {
   );
 });
 
-Route::post('/projects/save', function (Request $request) {
-  $error_message = '';
-  
-  $model_name = 'App\\' . $request->model_name;
-  
-  $model_instance = new $model_name;
+Route::post('/page/create', 'PageController@create');
 
-  $first = $model_instance::findOrFail($request->model_id);
+Route::post('/project/create', 'ProjectController@create');
 
-  $first[$request->key] = $request->value;
+Route::post('/project/save', 'ProjectController@save');
 
-  $result = $first->save();
+Route::post('/page/save', 'PageController@save');
 
-  return array(
-    'result' => $result,
-    "message" => "saved a " . $request->model_nam,
-    "log_message" => "saved a " . $request->model_name . " with ID " . $request->model_id . ". Key: " .  $request->key . " - Value: " .  $request->value,
-    "model_name" => $request->model_name,
-    "model_id" => $request->model_id,
-    "key" => $request->key,
-    "value" => $request->value,
-    "error_message" => $error_message,
-  );
-});
+Route::get('/project/{project_id}', 'ProjectController@show');
+// Route::get('/project/{project_id}', function (Request $request) {
 
+//   return $project_id;
+//   $projects = Project::where('id', $project_id);
+//   return $projects;
+//   $pages = Pages::where('project_id', $project_id);
+//   $fields = Project::$fields;
+
+//   return array(
+//     'models' => $projects,
+//     'fields' => $fields,
+//   );
+// });
+
+Route::get('/pages', 'PageController@index');
+
+Route::get('/projects', 'ProjectController@index');
 Route::get('/projects', function (Request $request) {
   $projects = Project::all();
   $fields = Project::$fields;

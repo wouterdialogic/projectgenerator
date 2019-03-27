@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Project;
 use App\Page;
 
-class ProjectController extends Controller
+class PageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,15 +14,13 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
-        $fields = Project::$fields;
+        $pages = Page::all();
+        $fields = Page::$fields;
 
         return array(
-            'models' => $projects,
+            'models' => $pages,
             'fields' => $fields,
         );
-        
-        return Project::all();
     }
 
     /**
@@ -33,66 +30,17 @@ class ProjectController extends Controller
      */
     public function create(Request $request)
     {
-    //    dd($request->new_model);
+        $page = new Page;
 
-       $project = new Project;
+        foreach ($request->new_model as $key => $value) {
+            $page[$key] = $value;
+        }
 
-       foreach ($request->new_model as $key => $value) {
-           $project[$key] = $value;
-       }
+        $page->save();
 
-       $project->save();
-
-       return "project saved";
+        return "page saved";
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $project = Project::create($request->all());
-        
-        return $project;
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($project_id)
-    {
-        //return "ok";
-        // return $project_id;
-        $project = Project::where('id', $project_id)->first();
-        
-        //return $projects;
-        $pages = Page::where('project_id', $project_id)->get();
-        // dd($pages);
-        $fields = Page::$fields;
-      
-        return array( 
-          'model_parent' => $project,
-          'models' => $pages,
-          'fields' => $fields,
-          'model_parent_name' => 'project',
-          'model_children_name' => 'page',
-        );
-        
-        //return Project::findOrFail($id);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function save(Request $request)
     {
         $error_message = '';
@@ -104,15 +52,15 @@ class ProjectController extends Controller
         if (!empty($request->models)) {
             $models_saved = 0;
             foreach ($request->models as $model) {
-            $model_instance = new $model_parent_name;
-            $found = $model_instance->where('id', $model["id"])->first();
+                $model_instance = new $model_parent_name;
+                $found = $model_instance->where('id', $model["id"])->first();
             
-            foreach ($model as $key => $value) {
-                $found[$key] = $value;
-            }
+                foreach ($model as $key => $value) {
+                    $found[$key] = $value;
+                }
 
-            $found->save();
-            $models_saved ++;
+                $found->save();
+                $models_saved ++;
             }
             
             return 'models saved: ' . $models_saved;
@@ -137,6 +85,40 @@ class ProjectController extends Controller
         }
     }
 
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -146,10 +128,7 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $project = Project::findOrFail($id);
-        $project->update($request->all());
-
-        return $project;
+        //
     }
 
     /**
@@ -160,9 +139,6 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        $project = Project::findOrFail($id);
-        $project->delete();
-        
-        return '';
+        //
     }
 }

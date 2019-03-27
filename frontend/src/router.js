@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import About from './views/About.vue'
 import Lalala from './views/Lalala.vue'
 import Projects from './views/Projects.vue'
+import MultipleViews from './views/MultipleViews.vue'
 
 Vue.use(Router)
 
@@ -14,6 +15,11 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/multipleViews',
+      name: 'MultipleViews',
+      component: MultipleViews
     },
     {
       path: '/projects',
