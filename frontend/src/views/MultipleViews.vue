@@ -50,7 +50,6 @@ export default {
 
   methods: {
       hide_menu() {
-          console.log("hide")
           if (this.menu_classes == '') {
               this.menu_classes = 'hidden';
               this.model_viewer_classes = ' w-full'

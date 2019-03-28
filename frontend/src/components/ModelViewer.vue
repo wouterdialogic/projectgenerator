@@ -1,5 +1,9 @@
 <template>
   <div class="hello">
+    <p>belangrijkste leerpunten:</p>
+    <p>filters arent standard included, but you can put them underneath filters or add them to the main vue instance. v-for... of will let you loop over the objects, v-loop... in will let you loop with keys.</p><p>with tailwind, not everything works with hover: some things you have to enable</p><p>when using a key in a for loop, dont use something you`re mutating, also dont use the whole object</p><p>when using functions in vue, think if you want to use a normal function function () {
+      ...
+    } or a es6 shorthand function () => {}, the latter has a different this. Sometimes you have to declare let self = this. and then use self.value to access something.</p>
     <h1>{{ msg }}</h1>
     <h2>{{ model_parent_name }}</h2>
     <h3 v-if="model_children_name">{{ model_children_name }}</h3>
@@ -34,7 +38,7 @@
     <button class="m-2 p-2 bg-red-light hover:bg-red" @click="cancel_saved">cancel</button>
     <p>models:</p>
     <div v-for="model of models" v-bind:key="model.id">
-      <h3 class="m2 p-2 bg-grey border-4 hover:border-red-darker " @click="load_new_model(model_parent_name, model.id)">{{model.name}}</h3>
+      <h3 class="m2 p-2 bg-grey border-4 hover:border-red-darker " @click="load_new_model(model_parent_name, model.id)">{{model.name | capitalize}}</h3>
       
       <form class="w-full max-w-md">
       
@@ -43,14 +47,14 @@
           
           <div class="md:w-1/4">
             <label class="block text-grey font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
-              {{item.to_user_name}}
+              {{item.to_user_name | capitalize}}
             </label>
           </div>
 
           <div class="md:w-3/4">    
 
             <template v-if="item.element == 'textarea'">
-              <textarea @keyup="throttledMethod1(model_children_name, model.id, item.database_name, model[item.database_name])" class="m-2 p-2 border shadow" v-model="model[item.database_name]"></textarea>
+              <textarea @keyup="throttledMethod1(model_children_name, model.id, item.database_name, model[item.database_name]) " class="m-2 p-2 border shadow" v-model="model[item.database_name]"></textarea>
             </template>
 
             <template v-if="item.element == 'input'">
@@ -91,25 +95,21 @@ export default {
       errors: [],
       new_model: {},
       parent_id: null,
-      //_templateArray: [{ name: "TEST" }]
     }
   },
 
+
   methods: {
-
-  // on_succes(message) {
-  //   this.msg = message;
-  // },
-
   cancel_saved() {
-    self = this;
+    var self = this;
 
-    axios.post(`/api/projects/save`, {
+    axios.post(`/api/project/save`, {
       model_parent_name: this.model_parent_name, 
       models: this.original_models,
     })
     .then(response => {
-      self.msg = reponse.data;
+      self.msg = response.data;
+      this.models = JSON.parse(JSON.stringify(this.original_models));
     })
     .catch(e => {
       self.errors.push(e)
@@ -178,7 +178,8 @@ export default {
     })
   },
 
-  throttledMethod1: _.debounce((model_children_name, model_id, key, value) => {
+  throttledMethod1: _.debounce(function (model_children_name, model_id, key, value) {
+    let self = this;
     axios.post(`/api/`+model_children_name+`/save`, {
         model_parent_name: model_children_name, 
         model_id: model_id, 
@@ -186,10 +187,10 @@ export default {
         value: value,
       })
       .then(function (response) {
-        
+        self.msg = response.data.log_message;
       })
       .catch(e => {
-        this.errors.push(e)
+        self.errors.push(e)
       })
     }, 500)
   },

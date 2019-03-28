@@ -46,6 +46,17 @@ Route::get('/project/{project_id}', 'ProjectController@show');
 //   );
 // });
 
+// Route::get('project', 'ProjectController@index' );
+// Route::get('project/{project_id}', 'ProjectController@show' );
+// Route::post('project/{project_id}', 'ProjectController@save' );
+// Route::post('project/', 'ProjectController@create' );
+
+// Route::get('page', 'PageController@index');
+// Route::get('project/{project_id}/page/', 'PageController@index');
+// Route::get('project/{project_id}/page/{page_id}', 'PageController@show');
+// Route::post('project/{project_id}/page/{page_id}', 'PageController@save' );
+// Route::post('project/{project_id}/page', 'PageController@create' );
+
 Route::get('/pages', 'PageController@index');
 
 Route::get('/projects', 'ProjectController@index');
