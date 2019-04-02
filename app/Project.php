@@ -8,6 +8,21 @@ class Project extends Model
 {
     public $name = 'Project';
     public static $name_plural = "Projects";
+    public static $children = ['pages'];
+
+    public function pages() {
+        return $this->hasMany('App\Page');
+    }
+
+    public function children() {
+        $result = [];
+
+        foreach ($this::$children as $child) {
+            $result[$child] = $this->$child()->get();
+        }
+
+        return $result;
+    }
 
     public static $fields = [
         "id" => [
@@ -15,7 +30,8 @@ class Project extends Model
             "to_user_name" => "ID",
             "type" => "integer",
             "primary_key" => true,
-            "editable_by_user" => false,
+            "editable_by_user" => true,
+            "visible" => true,
             "nullable" => false,
         ],
 

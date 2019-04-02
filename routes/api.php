@@ -32,42 +32,32 @@ Route::post('/project/save', 'ProjectController@save');
 Route::post('/page/save', 'PageController@save');
 
 Route::get('/project/{project_id}', 'ProjectController@show');
-// Route::get('/project/{project_id}', function (Request $request) {
 
-//   return $project_id;
-//   $projects = Project::where('id', $project_id);
-//   return $projects;
-//   $pages = Pages::where('project_id', $project_id);
+
+  // Route::get('project', 'ProjectController@index' );
+  // Route::get('project/{project_id}', 'ProjectController@show' );
+  // Route::post('project/{project_id}', 'ProjectController@save' );
+  // Route::post('project/', 'ProjectController@create' );
+
+  // Route::get('page', 'PageController@index');
+  // Route::get('project/{project_id}/page/', 'PageController@index');
+  // Route::get('project/{project_id}/page/{page_id}', 'PageController@show');
+  // Route::post('project/{project_id}/page/{page_id}', 'PageController@save' );
+  // Route::post('project/{project_id}/page', 'PageController@create' );
+
+Route::get('/pages', 'PageController@index');
+
+// Route::get('/projects', function (Request $request) {
+//   dd($request);
+//   $projects = Project::all();
 //   $fields = Project::$fields;
-
+//   return $projects;
 //   return array(
 //     'models' => $projects,
 //     'fields' => $fields,
 //   );
 // });
-
-// Route::get('project', 'ProjectController@index' );
-// Route::get('project/{project_id}', 'ProjectController@show' );
-// Route::post('project/{project_id}', 'ProjectController@save' );
-// Route::post('project/', 'ProjectController@create' );
-
-// Route::get('page', 'PageController@index');
-// Route::get('project/{project_id}/page/', 'PageController@index');
-// Route::get('project/{project_id}/page/{page_id}', 'PageController@show');
-// Route::post('project/{project_id}/page/{page_id}', 'PageController@save' );
-// Route::post('project/{project_id}/page', 'PageController@create' );
-
-Route::get('/pages', 'PageController@index');
-
 Route::get('/projects', 'ProjectController@index');
-Route::get('/projects', function (Request $request) {
-  $projects = Project::all();
-  $fields = Project::$fields;
-
-  return array(
-    'models' => $projects,
-    'fields' => $fields,
-  );
-});
+Route::get('/projectsonly', 'ProjectController@indexonly');
 
 // Route::resource('project', )

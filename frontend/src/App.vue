@@ -6,7 +6,8 @@
       <router-link to="/lalala">Lalala</router-link> | 
       <router-link to="/projects">Projects</router-link> | 
       <router-link to="/MultipleViews">MultipleViews</router-link> | 
-      <router-link to="/dragging">Dragging</router-link>
+      <router-link to="/dragging">Dragging</router-link> | 
+      <router-link to="/BasicApplication">Basic Application</router-link>
     </div>
     
     <router-view/>

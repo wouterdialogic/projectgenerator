@@ -9,6 +9,13 @@ class Page extends Model
     public $name = 'Page';
     public static $name_plural = "Pages";
 
+    public function project()
+    {
+        return $this->belongsTo('App\Project');
+    }
+
+   
+
     public static $fields = [
         "id" => [
             "database_name" => "id",

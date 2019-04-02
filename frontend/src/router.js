@@ -6,6 +6,7 @@ import Lalala from './views/Lalala.vue'
 import Projects from './views/Projects.vue'
 import MultipleViews from './views/MultipleViews.vue'
 import Dragging from './views/Dragging.vue'
+import BasicApplication from "./views/BasicApplication.vue"
 
 Vue.use(Router)
 
@@ -21,6 +22,11 @@ export default new Router({
       path: '/multipleViews',
       name: 'MultipleViews',
       component: MultipleViews
+    },
+    {
+      path: '/BasicApplication',
+      name: 'BasicApplication',
+      component: BasicApplication
     },
     {
       path: '/dragging',

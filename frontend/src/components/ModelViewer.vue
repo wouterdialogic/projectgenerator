@@ -38,7 +38,7 @@
     <button class="m-2 p-2 bg-red-light hover:bg-red" @click="cancel_saved">cancel</button>
     <p>models:</p>
     <div v-for="model of models" v-bind:key="model.id">
-      <h3 class="m2 p-2 bg-grey border-4 hover:border-red-darker " @click="load_new_model(model_parent_name, model.id)">{{model.name | capitalize}}</h3>
+      <h3 class="m2 p-2 bg-grey border-4 hover:border-red-darker " @click="load_new_model(model_parent_name, model.id)">{{model.id}}: {{model.name | capitalize}}</h3>
       
       <form class="w-full max-w-md">
       
@@ -140,7 +140,7 @@ export default {
   save_models() {
     var self = this;
 
-    axios.post(`/api/projects/save`, {
+    axios.post(`/api/project/save`, {
       model_parent_name: this.model_parent_name, 
       models: this.models,
     })

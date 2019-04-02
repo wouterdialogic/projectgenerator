@@ -15,14 +15,17 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::orderBy('order', 'ASC')->get();
         $fields = Project::$fields;
 
         return array(
             'models' => $projects,
             'fields' => $fields,
         );
-        
+    }
+
+    public function indexonly()
+    {
         return Project::all();
     }
 
