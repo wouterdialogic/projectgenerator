@@ -19,6 +19,24 @@ export default {
   },
   data: function() {
     return {
+       menu_items: [
+            {
+                id: "1",
+                name: "link 1",
+                href: "qwd wqdwq dwqd ",
+                active: true,
+            },
+            {
+                id: "2",
+                name: "link 2",
+                href: "qwddssddwqd ",
+            },
+            {
+                id: "3",
+                name: "link 3",
+                href: "qwd wqdwq dwqd ",
+            },
+        ],
     };
   }
 };

@@ -1,8 +1,5 @@
 <template>
   <div class="modelviewer p-3">
-
-
-
     <!-- TABLE, -->
     <table role="table">
       <thead role="rowgroup">

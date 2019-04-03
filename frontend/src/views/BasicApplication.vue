@@ -1,6 +1,7 @@
 <template>
   <div class="projects">
-    <h1>Projects and menu</h1>
+    <h1>Projects and menu, counter: {{count}}</h1>
+    <!-- <h3>counter 2: {{counter2}}</h3> -->
     <button @click="hide_menu">hide menu</button>
     <div class="min-w-full flex flex justify-center">
         <div class="border-b" v-for="item in active_menu" :key="item.id">
@@ -46,6 +47,10 @@ import MenuViewer from '@/components/MenuViewer.vue'
 import TabsViewer from '@/components/TabsViewer.vue'
 import DataComponent from '@/components/DataComponent.vue'
 import VueTable from '@/components/VueTable.vue'
+import TommAI from '@/components/TommAI.vue'
+import TommAI2 from '@/components/TommAI2.vue'
+import { mapState, mapActions } from 'vuex'
+import store from '@/store'
 
 export default {
   name: 'projects',
@@ -57,10 +62,14 @@ export default {
     TabsViewer,
     DataComponent,
     VueTable,
+    TommAI,
+    TommAI2,
+    store,
   },
   data () {
     return {
       active_item: 1,
+      //counter2: this.$store.counter,
       active_menu: [],
       menu_items1: [
             {
@@ -93,6 +102,16 @@ export default {
                 name: "ModelViewer3",
                 model: "ModelViewer3",
             },
+            {
+                id: "6",
+                name: "TommAI",
+                model: "TommAI",
+            },
+            {
+                id: "7",
+                name: "TommAI2",
+                model: "TommAI2",
+            },
         ],
         menu_items2: [
             {
@@ -117,6 +136,13 @@ export default {
         model_viewer_classes: 'w-full',
     }
   },
+    computed: {
+        count () {
+        return store.state.count
+        }
+    },
+//     counter: state => store.state.count,// this.$store.state.count,
+//   },
 
   methods: {
       set_active_menu_items(menu_name) {

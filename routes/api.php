@@ -33,6 +33,7 @@ Route::post('/page/save', 'PageController@save');
 
 Route::get('/project/{project_id}', 'ProjectController@show');
 
+Route::resource('/questions', 'QuestionController');
 
   // Route::get('project', 'ProjectController@index' );
   // Route::get('project/{project_id}', 'ProjectController@show' );

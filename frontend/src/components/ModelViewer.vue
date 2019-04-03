@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
-    <p>belangrijkste leerpunten:</p>
+    <button @click="commit_to_store()" class="m-2 p-2 bg-grey-lighter shadow-md">increment</button>
+    <p>belangrijkste leerpunten: {{count}}</p>
     <p>filters arent standard included, but you can put them underneath filters or add them to the main vue instance. v-for... of will let you loop over the objects, v-loop... in will let you loop with keys.</p><p>with tailwind, not everything works with hover: some things you have to enable</p><p>when using a key in a for loop, dont use something you`re mutating, also dont use the whole object</p><p>when using functions in vue, think if you want to use a normal function function () {
       ...
     } or a es6 shorthand function () => {}, the latter has a different this. Sometimes you have to declare let self = this. and then use self.value to access something.</p>
@@ -74,6 +75,7 @@
 <script>
 import _ from 'lodash'
 import axios from 'axios';
+// import store from '@/store'
 
 export default {
   props: {
@@ -83,6 +85,9 @@ export default {
   },
 
   name: 'ModelViewer',
+  componnets: {
+      // store,
+  },
 
   data () {
     return {
@@ -97,9 +102,16 @@ export default {
       parent_id: null,
     }
   },
-
+    computed: {
+        count () {
+        return this.$store.state.count
+        }
+    },
 
   methods: {
+    commit_to_store() {
+       this.$store.commit('increment')
+    },
   cancel_saved() {
     var self = this;
 
