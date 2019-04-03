@@ -12,6 +12,8 @@
         </div>
     </div>
     <div class="p-4 m-4"></div>
+    <input @keydown="searchmongrol" class="w-1/2 m-2 p-2 bg-white" v-model="searchword" placeholder="search"></input>
+    <div class="p-4 m-4"></div>
     <!-- <div>
       <p class="text-black">{{msg}} - count: {{count}}</p>
     </div> -->
@@ -42,6 +44,7 @@ export default {
         // ),
         classes: "bg-grey-lighter",
         msg: "hi",
+        searchword: '',
         active_item: 1,
          menu_items: [
             {
@@ -73,6 +76,10 @@ export default {
         }
     },
   methods: {
+      searchmongrol() {
+          console.log("searchmongrol")
+          this.$store.dispatch('getAllQuestions')
+      },
       make_editable() {
 
       },

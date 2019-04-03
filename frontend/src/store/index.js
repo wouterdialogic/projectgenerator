@@ -20,6 +20,11 @@ export default new Vuex.Store({
 
   // actions
     actions: {
+        getQuestionsWith ({ commit }) {
+            fetch('/api/questions').then(res => res.json()).then((questions) => {
+                commit('setQuestions', questions)
+            })
+        },
         getAllQuestions ({ commit }) {
             fetch('/api/questions').then(res => res.json()).then((questions) => {
                 commit('setQuestions', questions)
