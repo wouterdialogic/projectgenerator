@@ -18,20 +18,50 @@
       <p class="text-black">{{msg}} - count: {{count}}</p>
     </div> -->
     <!-- <p> {{ questions }} </p> -->
+    <ModalComponent
+  
+    :title="'my modal'"
+    :visable="true"
+    >
+        <p>hi there</p>
+        <p>this is some info</p>
+        <p>hi there</p>
+        <p>this is some info</p>
+
+            <ModalComponent
+                :visable="true"
+                :title="'my modal 2'"
+                :classes="''"
+                >
+                <p>hi there</p>
+                <p>this is some info</p>
+                    <h2 class="bg-grey-lighter p-2 mb-2 mt-2">deep shit</h2>
+                    <p>hi there</p>
+                <p>this is some info</p>
+            </ModalComponent>
+
+            <h2 class="bg-grey-lighter p-2 mb-2 mt-2">deep shit</h2>
+            <p>hi there</p>
+            <p>this is some info</p>
+                <h2 class="bg-grey-lighter p-2 mb-2 mt-2">deep shit</h2>
+                <p>hi there</p>
+            <p>this is some info</p>
+        </ModalComponent>
+    
     <div v-for="question in questions" :key="question.id">
-        <p class="m-2 mt-4 w-full p-2 text-bold text-lg font-bold">{{question.question}}</p>    
+        <p @click="show_question_details(question.id)" class="m-2 mt-4 w-full p-2 text-bold text-lg font-bold">{{question.question}}</p>    
         <p class="giveMeEllipsis m-2 w-full p-2 border-b border-grey">{{question.answer}}</p>    
     </div>
   </div>
 </template>
 
 <script>
-
+import ModalComponent from '@/components/ModalComponent.vue'
 
 export default {
   name: "TommAI2",
   components: {
-      //InstantSearch
+      ModalComponent
   },
   props: {
 
@@ -46,7 +76,7 @@ export default {
         msg: "hi",
         searchword: '',
         active_item: 1,
-         menu_items: [
+        menu_items: [
             {
                 id: "1",
                 name: "link 1",
@@ -82,6 +112,9 @@ export default {
       },
       make_editable() {
 
+      },
+      show_question_details(question_id) {
+          //make modal visible
       },
       make_active(id) {
           this.active_item = id;

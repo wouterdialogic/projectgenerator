@@ -16,6 +16,7 @@ export default new Vuex.Store({
     state: {
         count: 1,
         questions: [],
+        modal_level: 1,
     },
 
   // actions
@@ -52,6 +53,15 @@ export default new Vuex.Store({
         increment (state) {
             state.count++
         },
+
+        open_modal (state) {
+            state.modal_level ++;
+        },
+
+        close_modal (state) {
+            state.modal_level --;
+        },
+
         setQuestions (state, questions) {
             state.questions = questions
         },

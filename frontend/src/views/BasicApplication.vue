@@ -49,6 +49,7 @@ import DataComponent from '@/components/DataComponent.vue'
 import VueTable from '@/components/VueTable.vue'
 import TommAI from '@/components/TommAI.vue'
 import TommAI2 from '@/components/TommAI2.vue'
+import QuestionShowComponent from '@/components/QuestionShowComponent.vue'
 import { mapState, mapActions } from 'vuex'
 import store from '@/store'
 
@@ -64,6 +65,7 @@ export default {
     VueTable,
     TommAI,
     TommAI2,
+    QuestionShowComponent,
     store,
   },
   data () {
@@ -111,6 +113,11 @@ export default {
                 id: "7",
                 name: "TommAI2",
                 model: "TommAI2",
+            },
+            {
+                id: "8",
+                name: "QuestionShowComponent",
+                model: "QuestionShowComponent",
             },
         ],
         menu_items2: [
