@@ -21,7 +21,7 @@
     <ModalComponent
   
     :title="'my modal'"
-    :visable="true"
+    :visable="false"
     >
         <p>hi there</p>
         <p>this is some info</p>
@@ -29,7 +29,7 @@
         <p>this is some info</p>
 
             <ModalComponent
-                :visable="true"
+                :visable="false"
                 :title="'my modal 2'"
                 :classes="''"
                 >
@@ -49,7 +49,12 @@
         </ModalComponent>
     
     <div v-for="question in questions" :key="question.id">
-        <p @click="show_question_details(question.id)" class="m-2 mt-4 w-full p-2 text-bold text-lg font-bold">{{question.question}}</p>    
+        <p @click="show_question_details(question.id)" class="mt-2 mt-4 w-full p-2 text-bold text-lg font-bold">{{question.question}}</p>    
+        <template v-for="tag in question.tags" >
+            <button class="inline-block mb-1 bg-grey-light rounded-full px-3 pt-1 pb-1 font-semibold text-grey-darkest mr-2" :key="tag.id">
+                <span class="text-sm">{{tag.tag}}</span>
+            </button>
+        </template>
         <p class="giveMeEllipsis m-2 w-full p-2 border-b border-grey">{{question.answer}}</p>    
     </div>
   </div>

@@ -10,6 +10,10 @@ class Question extends Model
         'question', 'question_detailed', 'answer', 'rating'
     ];
 
+    public function tags() {
+        return $this->belongsToMany('App\Tag');
+    }
+
     public static $fields = [
         "id" => [
             "database_name" => "id",

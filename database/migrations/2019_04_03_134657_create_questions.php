@@ -50,7 +50,7 @@ class CreateQuestions extends Migration
             $table->string('tag');
         });
 
-        Schema::create('questions_tags', function(Blueprint $table)
+        Schema::create('question_tag', function(Blueprint $table)
         {
             $table->increments('id');
             $table->integer('question_id');
@@ -69,6 +69,6 @@ class CreateQuestions extends Migration
         Schema::dropIfExists('questions');
         Schema::dropIfExists('questions_log');
         Schema::dropIfExists('tags');
-        Schema::dropIfExists('questions_tags');
+        Schema::dropIfExists('question_tag');
     }
 }
