@@ -35,6 +35,7 @@ Route::get('/project/{project_id}', 'ProjectController@show');
 
 Route::resource('/questions', 'QuestionController');
 
+Route::get('/questions/{question_id}/toggle_tag/{tag_id}', 'QuestionController@tag_question');
   // Route::get('project', 'ProjectController@index' );
   // Route::get('project/{project_id}', 'ProjectController@show' );
   // Route::post('project/{project_id}', 'ProjectController@save' );

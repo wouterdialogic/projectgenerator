@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="p-4 m-4"></div>
-    <input @keydown="searchmongrol" class="w-1/2 m-2 p-2 bg-white" v-model="searchword" placeholder="search"></input>
+    <input @keydown="searchmongrol" class="w-1/2 m-2 p-2 bg-white" v-model="searchword" placeholder="search">
     <div class="p-4 m-4"></div>
     <!-- <div>
       <p class="text-black">{{msg}} - count: {{count}}</p>
@@ -21,7 +21,7 @@
     <ModalComponent
   
     :title="'my modal'"
-    :visable="false"
+    :visible="false"
     >
         <p>hi there</p>
         <p>this is some info</p>
@@ -29,7 +29,7 @@
         <p>this is some info</p>
 
             <ModalComponent
-                :visable="false"
+                :visible="false"
                 :title="'my modal 2'"
                 :classes="''"
                 >
@@ -47,14 +47,73 @@
                 <p>hi there</p>
             <p>this is some info</p>
         </ModalComponent>
-    
+
+    <template v-if="add_tag_popup">
+        <ModalComponent 
+            :title="'Add tags'"
+            :visible="true"
+            :classes="''"
+        >
+            <div class="mt-2">
+                <template v-for="question in questions">
+                    <template v-for="tag in question.tags" > 
+                        <template v-if="current_question_id == question.id">
+                            <button :key="tag.id+question.id"
+                            @click="store_toggle_tag(question.id, tag.id)">
+                            <TagComponent :key="tag.id+question.id"
+                                
+                                :title="tag.tag"
+                                :title_classes="'flex-item px-4 py-1 bg-green-light text-sm'"
+                            ></TagComponent>
+                            </button>
+                        </template>
+                        <template v-else>
+                            <button :key="tag.id+question.id"
+                            @click="store_toggle_tag(question.id, tag.id)">
+                            <TagComponent :key="tag.id+question.id"
+                                
+                                @click="store_toggle_tag(question.id, tag.id)"
+                                :title="tag.tag"
+                                :title_classes="'flex-item px-4 py-1 bg-grey-light text-sm'"
+                            ></TagComponent>
+                            </button>
+                        </template>
+                    </template>
+                </template>
+            </div> 
+        </ModalComponent>
+    </template>
+
     <div v-for="question in questions" :key="question.id">
+        
         <p @click="show_question_details(question.id)" class="mt-2 mt-4 w-full p-2 text-bold text-lg font-bold">{{question.question}}</p>    
         <template v-for="tag in question.tags" >
-            <button class="inline-block mb-1 bg-grey-light rounded-full px-3 pt-1 pb-1 font-semibold text-grey-darkest mr-2" :key="tag.id">
-                <span class="text-sm">{{tag.tag}}</span>
+            <button :key="tag.id"
+                @click="enable_tag(question.id, tag.id)"
+            >
+            <TagComponent :key="tag.id"
+               
+                :title="tag.tag"
+                :title_classes="'px-4 py-1 bg-grey-light text-sm'"
+            ></TagComponent>
             </button>
         </template>
+
+        <button @click="toggle_tag(question.id)" class="inline-block mb-1 bg-grey-light rounded-full px-3 pt-1 pb-1 font-semibold text-grey-darkest mr-2">
+            <span class="text-sm"> + </span>
+        </button>
+        <button @click="toggle_tag(question.id)" class="inline-block mb-1 bg-grey-light rounded-full px-3 pt-1 pb-1 font-semibold text-grey-darkest mr-2">
+            <span class="text-sm"> + </span>
+        </button>
+        <button @click="toggle_tag(question.id)" class="inline-block mb-1 bg-grey-light rounded-full px-3 pt-1 pb-1 font-semibold text-grey-darkest mr-2">
+            <span class="text-sm"> + </span>
+        </button>
+
+        <TagComponent
+            :title="'monkeys'"
+            :title_classes="'px-4 pt-4 pb-4 bg-red text-sm'"
+        ></TagComponent>
+
         <p class="giveMeEllipsis m-2 w-full p-2 border-b border-grey">{{question.answer}}</p>    
     </div>
   </div>
@@ -62,11 +121,13 @@
 
 <script>
 import ModalComponent from '@/components/ModalComponent.vue'
+import TagComponent from '@/components/TagComponent.vue'
 
 export default {
   name: "TommAI2",
   components: {
-      ModalComponent
+      ModalComponent,
+      TagComponent
   },
   props: {
 
@@ -80,7 +141,9 @@ export default {
         classes: "bg-grey-lighter",
         msg: "hi",
         searchword: '',
-        active_item: 1,
+        active_item: 3,
+        current_question_id: 3,
+        add_tag_popup: true,
         menu_items: [
             {
                 id: "1",
@@ -107,13 +170,41 @@ export default {
         },
         questions () {
             return this.$store.state.questions;
-
-        }
+        },
+        // current_popup() {
+        //     return this.add_tag_popup;
+        // },
     },
   methods: {
+      toggle_tag(question_id) {
+          this.current_question_id = question_id;
+          console.log(this.add_tag_popup);
+          this.add_tag_popup = !this.add_tag_popup;
+      },
+      store_toggle_tag(q_id, t_id) {
+        console.log("fire")
+        this.$store.dispatch('toggle_question_tag', {
+            question_id: q_id,
+            tag_id: t_id
+        })
+      },
+      disable_tag(q_id, t_id) {
+        console.log("fire")
+        this.$store.dispatch('toggle_question_tag', {
+            question_id: q_id,
+           tag_id: t_id
+        })
+      },
+      enable_tag(q_id, t_id) {
+        console.log("fire")
+        this.$store.dispatch('toggle_question_tag', {
+           question_id: q_id,
+           tag_id: t_id
+        })
+      },
       searchmongrol() {
-          console.log("searchmongrol")
-          this.$store.dispatch('getAllQuestions')
+          //console.log("searchmongrol")
+          this.$store.dispatch('getAllQuestions');
       },
       make_editable() {
 

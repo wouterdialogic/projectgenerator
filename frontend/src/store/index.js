@@ -46,6 +46,24 @@ export default new Vuex.Store({
             // shop.getProducts(questions => {
             //     commit('setQuestions', questions)
         },
+        toggle_question_tag ( commit, load ) {
+            console.log(load.question_id);
+            console.log(load.tag_id);
+            var question_id = load.question_id;
+            var tag_id = load.tag_id;
+            // axios({
+            //     method: 'post',
+            //     url: '/user/12345',
+            //     data: {
+            //         firstName: 'Fred',
+            //         lastName: 'Flintstone'
+            //     }
+            // });
+            
+            fetch('/api/questions/'+question_id+'/toggle_tag/'+tag_id).then(res => res.json()).then(() => {
+                //commit('setQuestions', questions)
+            })
+        },
         
     },
 

@@ -31,6 +31,14 @@ class QuestionController extends Controller
     {
         //
     }
+    
+    public function tag_question($question_id, $tag_id) {
+        $question = Question::find($question_id);
+        
+        $question->tags()->toggle($tag_id);
+
+        return "ok";
+    }
 
     /**
      * Store a newly created resource in storage.
