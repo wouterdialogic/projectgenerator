@@ -16,6 +16,8 @@ export default new Vuex.Store({
     state: {
         count: 1,
         questions: [],
+        current_question: {},
+        tags: [],
         modal_level: 1,
     },
 
@@ -26,8 +28,13 @@ export default new Vuex.Store({
                 commit('setQuestions', questions)
             })
         },
+        getAllTags ({ commit }) {
+            fetch('/api/tags').then(res => res.json()).then((tags) => {
+                commit('setTags', tags)
+            })
+        },
         getAllQuestions ({ commit }) {
-            fetch('/api/questions').then(res => res.json()).then((questions) => {
+            fetch('api/questions').then(res => res.json()).then((questions) => {
                 commit('setQuestions', questions)
                 //this.models = models;
                 //this.original_models = JSON.parse(JSON.stringify(models)); 
@@ -61,6 +68,8 @@ export default new Vuex.Store({
             // });
             
             fetch('/api/questions/'+question_id+'/toggle_tag/'+tag_id).then(res => res.json()).then(() => {
+                
+                
                 //commit('setQuestions', questions)
             })
         },
@@ -70,6 +79,15 @@ export default new Vuex.Store({
     mutations: {
         increment (state) {
             state.count++
+        },
+
+        set_current_question (state, question_id) {
+            for (var question of state.questions) {
+                if (question.id == question_id) {
+                    state.current_question = question;
+                    return;
+                }
+            }
         },
 
         open_modal (state) {
@@ -83,6 +101,33 @@ export default new Vuex.Store({
         setQuestions (state, questions) {
             state.questions = questions
         },
+        
+        setTags (state, tags) {
+            state.tags = tags
+        },
+
+        setAllTags (state) {
+            console.log("setting");
+            if (state.current_question) {
+                var question_tag_ids = [];
+                console.log(state.current_question)
+                
+                for (var question_tag of state.current_question.tags) {
+                    question_tag_ids.push(question_tag.id);
+                }
+
+
+                for ( var tag in state.tags) {
+                    console.log(tag)
+                    if (question_tag_ids.includes(state.tags[tag].id)) {
+                        state.tags[tag].enabled = true;
+                    } else {
+                        state.tags[tag].enabled = false;
+                        // tag.enabled = false;
+                    }
+                }
+            }
+        }
     },
 
     strict: debug,

@@ -9,7 +9,7 @@
             <h2 class="bg-grey-lighter p-2 mb-2">{{title}}</h2>
             
             <!-- <p>level: {{level}}</p> -->
-            <p>z_index: {{z_index}}</p>
+            <!-- <p>z_index: {{z_index}}</p>
             <p>visible: {{visible}}</p>
             <p>is_visible: {{is_visible}}</p>
 
@@ -18,7 +18,7 @@
 
             <p>current_store_level: {{current_store_level}}</p>
 
-            <p>level_to_transparancy: {{level_to_transparancy}}</p>
+            <p>level_to_transparancy: {{level_to_transparancy}}</p> -->
 
             <slot></slot>
 

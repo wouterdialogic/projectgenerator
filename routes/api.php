@@ -29,37 +29,57 @@ Route::post('/project/create', 'ProjectController@create');
 
 Route::post('/project/save', 'ProjectController@save');
 
+Route::get('questions/{question_id}/toggle_tag/{tag_id}', 'QuestionController@tag_question');
+
+Route::resource('questions', 'QuestionController');
+Route::resource('tags', 'TagController');
+
 Route::post('/page/save', 'PageController@save');
 
+// Route::resource('/tag', 'TagController');
+
 Route::get('/project/{project_id}', 'ProjectController@show');
+// Route::get('/project/{project_id}', function (Request $request) {
 
-Route::resource('/questions', 'QuestionController');
-
-Route::get('/questions/{question_id}/toggle_tag/{tag_id}', 'QuestionController@tag_question');
-  // Route::get('project', 'ProjectController@index' );
-  // Route::get('project/{project_id}', 'ProjectController@show' );
-  // Route::post('project/{project_id}', 'ProjectController@save' );
-  // Route::post('project/', 'ProjectController@create' );
-
-  // Route::get('page', 'PageController@index');
-  // Route::get('project/{project_id}/page/', 'PageController@index');
-  // Route::get('project/{project_id}/page/{page_id}', 'PageController@show');
-  // Route::post('project/{project_id}/page/{page_id}', 'PageController@save' );
-  // Route::post('project/{project_id}/page', 'PageController@create' );
-
-Route::get('/pages', 'PageController@index');
-
-// Route::get('/projects', function (Request $request) {
-//   dd($request);
-//   $projects = Project::all();
-//   $fields = Project::$fields;
+//   return $project_id;
+//   $projects = Project::where('id', $project_id);
 //   return $projects;
+//   $pages = Pages::where('project_id', $project_id);
+//   $fields = Project::$fields;
+
 //   return array(
 //     'models' => $projects,
 //     'fields' => $fields,
 //   );
 // });
+
+// Route::get('project', 'ProjectController@index' );
+// Route::get('project/{project_id}', 'ProjectController@show' );
+// Route::post('project/{project_id}', 'ProjectController@save' );
+// Route::post('project/', 'ProjectController@create' );
+
+// Route::get('page', 'PageController@index');
+// Route::get('project/{project_id}/page/', 'PageController@index');
+// Route::get('project/{project_id}/page/{page_id}', 'PageController@show');
+// Route::post('project/{project_id}/page/{page_id}', 'PageController@save' );
+// Route::post('project/{project_id}/page', 'PageController@create' );
+
+// Route::get('project/{project_id}/page/{page_id}', 'PageController@show');
+// Route::get('project/{project_id}/page/{page_id}/element/{element_id}', 'PageController@show');
+
+
+
+Route::get('/pages', 'PageController@index');
+
 Route::get('/projects', 'ProjectController@index');
-Route::get('/projectsonly', 'ProjectController@indexonly');
+Route::get('/projects', function (Request $request) {
+  $projects = Project::all();
+  $fields = Project::$fields;
+
+  return array(
+    'models' => $projects,
+    'fields' => $fields,
+  );
+});
 
 // Route::resource('project', )

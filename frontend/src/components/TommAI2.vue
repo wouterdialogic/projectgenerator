@@ -18,10 +18,10 @@
       <p class="text-black">{{msg}} - count: {{count}}</p>
     </div> -->
     <!-- <p> {{ questions }} </p> -->
-    <ModalComponent
+    <!-- <ModalComponent
   
     :title="'my modal'"
-    :visible="false"
+    :visible="true"
     >
         <p>hi there</p>
         <p>this is some info</p>
@@ -29,7 +29,7 @@
         <p>this is some info</p>
 
             <ModalComponent
-                :visible="false"
+                :visible="true"
                 :title="'my modal 2'"
                 :classes="''"
                 >
@@ -46,8 +46,9 @@
                 <h2 class="bg-grey-lighter p-2 mb-2 mt-2">deep shit</h2>
                 <p>hi there</p>
             <p>this is some info</p>
-        </ModalComponent>
-
+        </ModalComponent> -->
+tags: {{tags}}
+<br><br>question: {{current_question}}
     <template v-if="add_tag_popup">
         <ModalComponent 
             :title="'Add tags'"
@@ -55,41 +56,47 @@
             :classes="''"
         >
             <div class="mt-2">
-                <template v-for="question in questions">
-                    <template v-for="tag in question.tags" > 
-                        <template v-if="current_question_id == question.id">
-                            <button :key="tag.id+question.id"
-                            @click="store_toggle_tag(question.id, tag.id)">
-                            <TagComponent :key="tag.id+question.id"
-                                
-                                :title="tag.tag"
-                                :title_classes="'flex-item px-4 py-1 bg-green-light text-sm'"
-                            ></TagComponent>
-                            </button>
-                        </template>
-                        <template v-else>
-                            <button :key="tag.id+question.id"
-                            @click="store_toggle_tag(question.id, tag.id)">
-                            <TagComponent :key="tag.id+question.id"
-                                
-                                @click="store_toggle_tag(question.id, tag.id)"
-                                :title="tag.tag"
-                                :title_classes="'flex-item px-4 py-1 bg-grey-light text-sm'"
-                            ></TagComponent>
-                            </button>
-                        </template>
+
+                <template v-for="question_tag in current_question.tags">
+                    <p>{{question_tag.tag}}</p>
+                </template>
+
+                <template v-for="tag in tags">
+                   
+                    <template v-if="tag.enabled">
+                        <button :key="tag.id"
+                        @click="store_toggle_tag(current_question_id, tag.id)">
+                        <TagComponent :key="tag.id"
+                            
+                            :title="tag.tag"
+                            :title_classes="'flex-item px-4 py-1 bg-green-light text-sm'"
+                        ></TagComponent>
+                        </button>
                     </template>
+
+                    <template v-else>
+                        <button :key="tag.id"
+                        @click="store_toggle_tag(current_question_id, tag.id)">
+                        <TagComponent :key="tag.id"
+                            
+                            @click="store_toggle_tag(current_question_id, tag.id)"
+                            :title="tag.tag"
+                            :title_classes="'flex-item px-4 py-1 bg-grey-light text-sm'"
+                        ></TagComponent>
+                        </button>
+                    </template>
+
                 </template>
             </div> 
         </ModalComponent>
     </template>
-
+    
     <div v-for="question in questions" :key="question.id">
         
         <p @click="show_question_details(question.id)" class="mt-2 mt-4 w-full p-2 text-bold text-lg font-bold">{{question.question}}</p>    
         <template v-for="tag in question.tags" >
             <button :key="tag.id"
-                @click="enable_tag(question.id, tag.id)"
+                @click="toggle_tag(question.id, tag.id)"
             >
             <TagComponent :key="tag.id"
                
@@ -102,7 +109,7 @@
         <button @click="toggle_tag(question.id)" class="inline-block mb-1 bg-grey-light rounded-full px-3 pt-1 pb-1 font-semibold text-grey-darkest mr-2">
             <span class="text-sm"> + </span>
         </button>
-        <button @click="toggle_tag(question.id)" class="inline-block mb-1 bg-grey-light rounded-full px-3 pt-1 pb-1 font-semibold text-grey-darkest mr-2">
+        <!-- <button @click="toggle_tag(question.id)" class="inline-block mb-1 bg-grey-light rounded-full px-3 pt-1 pb-1 font-semibold text-grey-darkest mr-2">
             <span class="text-sm"> + </span>
         </button>
         <button @click="toggle_tag(question.id)" class="inline-block mb-1 bg-grey-light rounded-full px-3 pt-1 pb-1 font-semibold text-grey-darkest mr-2">
@@ -112,7 +119,7 @@
         <TagComponent
             :title="'monkeys'"
             :title_classes="'px-4 pt-4 pb-4 bg-red text-sm'"
-        ></TagComponent>
+        ></TagComponent> -->
 
         <p class="giveMeEllipsis m-2 w-full p-2 border-b border-grey">{{question.answer}}</p>    
     </div>
@@ -143,7 +150,7 @@ export default {
         searchword: '',
         active_item: 3,
         current_question_id: 3,
-        add_tag_popup: true,
+        add_tag_popup: false,
         menu_items: [
             {
                 id: "1",
@@ -165,62 +172,111 @@ export default {
     };
   },
     computed: {
+        // all_current_tags() {
+        //     this.get_all_tags();
+        // },
         count () {
             return this.$store.state.count
         },
         questions () {
             return this.$store.state.questions;
         },
+        current_question () {
+            return this.$store.state.current_question;
+        },
+        tags () {
+            return this.$store.state.tags;
+        },
+        
         // current_popup() {
         //     return this.add_tag_popup;
         // },
     },
   methods: {
-      toggle_tag(question_id) {
-          this.current_question_id = question_id;
-          console.log(this.add_tag_popup);
-          this.add_tag_popup = !this.add_tag_popup;
-      },
-      store_toggle_tag(q_id, t_id) {
+    tag_in_question(tag_id, question_id) {
+
+        
+
+        if (!this.current_question) {
+            return;
+        }
+
+        if (this.current_question.tags.length == 0) {
+            console.log("EXIT");
+            return;
+        }
+
+        for (var tag of this.current_question.tags) {
+            if (tag_id == tag.id) {
+                console.log("TRUE");
+                return true;
+            }
+        }
+        // console.log(question);
+    },
+
+    // get_all_tags() {
+    //     let question_tag_ids = [];
+    //     for (var question_tag of this.current_question.tags) {
+    //         question_tag_ids.push(question_tag.id);
+    //     }
+    //     console.log(question_tag_ids);
+    //     for (var tag of this.tags) {
+    //         if (question_tag_ids.includes(tag.id)) {
+    //             tag.enabled = true;
+    //         } else {
+    //             tag.enabled = false;
+    //         }
+    //     }
+    // },
+
+    get_current_question() {
+        for (var question of this.questions) {
+            if (question.id == this.current_question_id) {
+                return question;
+            }
+        }
+    },
+
+    toggle_tag(question_id) {
+        this.current_question_id = question_id;
+        this.$store.commit('set_current_question', question_id)
+        //this.current_question = this.get_current_question()
+        console.log(this.current_question_id);
+        this.add_tag_popup = !this.add_tag_popup;
+        // this.get_all_tags();
+        this.$store.commit('setAllTags');
+    },
+
+    store_toggle_tag(q_id, t_id) {
         console.log("fire")
         this.$store.dispatch('toggle_question_tag', {
             question_id: q_id,
             tag_id: t_id
         })
-      },
-      disable_tag(q_id, t_id) {
-        console.log("fire")
-        this.$store.dispatch('toggle_question_tag', {
-            question_id: q_id,
-           tag_id: t_id
-        })
-      },
-      enable_tag(q_id, t_id) {
-        console.log("fire")
-        this.$store.dispatch('toggle_question_tag', {
-           question_id: q_id,
-           tag_id: t_id
-        })
-      },
-      searchmongrol() {
-          //console.log("searchmongrol")
-          this.$store.dispatch('getAllQuestions');
-      },
-      make_editable() {
+        this.$store.dispatch('getAllQuestions');
+        //this.get_all_tags();
+        this.$store.commit('setAllTags');
+    },
+    
+    searchmongrol() {
+        //console.log("searchmongrol")
+        this.$store.dispatch('getAllQuestions');
+    },
 
-      },
-      show_question_details(question_id) {
-          //make modal visible
-      },
-      make_active(id) {
-          this.active_item = id;
-      },
+    show_question_details(question_id) {
+        //make modal visible
+    },
+    make_active(id) {
+        this.active_item = id;
+    },
   },
   created: function() {
       this.$store.dispatch('getAllQuestions')
-      this.$store.commit('increment')
-      this.$store.commit('increment')
-      this.$store.commit('increment')
+      this.$store.dispatch('getAllTags')
+    //   this.$store.commit('increment')
+    //   this.$store.commit('increment')
+    //   this.$store.commit('increment')
   }
 };
 </script>
