@@ -50,6 +50,7 @@ import VueTable from '@/components/VueTable.vue'
 import TommAI from '@/components/TommAI.vue'
 import TommAI2 from '@/components/TommAI2.vue'
 import QuestionShowComponent from '@/components/QuestionShowComponent.vue'
+import ToggleTags from '@/components/ToggleTags.vue'
 import { mapState, mapActions } from 'vuex'
 import store from '@/store'
 
@@ -66,6 +67,7 @@ export default {
     TommAI,
     TommAI2,
     QuestionShowComponent,
+    ToggleTags,
     store,
   },
   data () {
@@ -118,6 +120,11 @@ export default {
                 id: "8",
                 name: "QuestionShowComponent",
                 model: "QuestionShowComponent",
+            },
+            {
+                id: "9",
+                name: "ToggleTags",
+                model: "ToggleTags",
             },
         ],
         menu_items2: [

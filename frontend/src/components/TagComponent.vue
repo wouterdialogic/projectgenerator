@@ -16,11 +16,13 @@ export default {
     margin: String,
     padding: String
   },
+
   data: function() {
     return {
     //   
     };
   },
+  
   computed: {
     classes() {
       return this.background_color + " " + this.height + ' ' + this.margin + ' ' + this.padding;

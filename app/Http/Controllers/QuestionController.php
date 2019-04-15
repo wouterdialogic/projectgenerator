@@ -37,7 +37,7 @@ class QuestionController extends Controller
         
         $question->tags()->toggle($tag_id);
 
-        return "ok";
+        return ["ok"];
     }
 
     /**

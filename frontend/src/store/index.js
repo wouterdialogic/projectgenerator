@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
+import questionsModule from './questions.js'
+
 // import cart from './modules/cart'
 // import products from './modules/products'
 // import createLogger from '../../../src/plugins/logger'
@@ -11,7 +13,7 @@ const debug = process.env.NODE_ENV !== 'production'
 
 export default new Vuex.Store({
     modules: {
-
+        //questionsModule,
     },
     state: {
         count: 1,
@@ -28,11 +30,13 @@ export default new Vuex.Store({
                 commit('setQuestions', questions)
             })
         },
+
         getAllTags ({ commit }) {
             fetch('/api/tags').then(res => res.json()).then((tags) => {
                 commit('setTags', tags)
             })
         },
+
         getAllQuestions ({ commit }) {
             fetch('api/questions').then(res => res.json()).then((questions) => {
                 commit('setQuestions', questions)
@@ -67,9 +71,7 @@ export default new Vuex.Store({
             //     }
             // });
             
-            fetch('/api/questions/'+question_id+'/toggle_tag/'+tag_id).then(res => res.json()).then(() => {
-                
-                
+            fetch('/api/questions/'+question_id+'/toggle_tag/'+tag_id).then(res => res.json()).then(() => { 
                 //commit('setQuestions', questions)
             })
         },

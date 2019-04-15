@@ -11,6 +11,7 @@
         </template>
         </div>
     </div>
+    {{total_store.tags}}
     <div class="p-4 m-4"></div>
     <input @keydown="searchmongrol" class="w-1/2 m-2 p-2 bg-white" v-model="searchword" placeholder="search">
     <div class="p-4 m-4"></div>
@@ -55,6 +56,10 @@ tags: {{tags}}
             :visible="true"
             :classes="''"
         >
+          
+            <ToggleTags>
+            </ToggleTags>
+
             <div class="mt-2">
 
                 <template v-for="question_tag in current_question.tags">
@@ -106,7 +111,7 @@ tags: {{tags}}
             </button>
         </template>
 
-        <button @click="toggle_tag(question.id)" class="inline-block mb-1 bg-grey-light rounded-full px-3 pt-1 pb-1 font-semibold text-grey-darkest mr-2">
+        <button @click="update_tags(question.id)" class="inline-block mb-1 bg-grey-light rounded-full px-3 pt-1 pb-1 font-semibold text-grey-darkest mr-2">
             <span class="text-sm"> + </span>
         </button>
         <!-- <button @click="toggle_tag(question.id)" class="inline-block mb-1 bg-grey-light rounded-full px-3 pt-1 pb-1 font-semibold text-grey-darkest mr-2">
@@ -129,12 +134,14 @@ tags: {{tags}}
 <script>
 import ModalComponent from '@/components/ModalComponent.vue'
 import TagComponent from '@/components/TagComponent.vue'
+import ToggleTags from '@/components/ToggleTags.vue'
 
 export default {
   name: "TommAI2",
   components: {
       ModalComponent,
-      TagComponent
+      TagComponent,
+      ToggleTags,
   },
   props: {
 
@@ -175,6 +182,10 @@ export default {
         // all_current_tags() {
         //     this.get_all_tags();
         // },
+        total_store () {
+            return this.$store.state;
+        },
+
         count () {
             return this.$store.state.count
         },
@@ -238,6 +249,12 @@ export default {
         }
     },
 
+    update_tags(question_id) {
+        this.current_question_id = question_id;
+        this.$store.commit('set_current_question', question_id)
+        this.$store.commit('setAllTags');
+    },
+
     toggle_tag(question_id) {
         this.current_question_id = question_id;
         this.$store.commit('set_current_question', question_id)
@@ -249,12 +266,15 @@ export default {
     },
 
     store_toggle_tag(q_id, t_id) {
+        // this.$store.commit('setAllTags');
         console.log("fire")
         this.$store.dispatch('toggle_question_tag', {
             question_id: q_id,
             tag_id: t_id
         })
         this.$store.dispatch('getAllQuestions');
+        this.current_question_id = q_id;
+        this.$store.commit('set_current_question', q_id)
         //this.get_all_tags();
         this.$store.commit('setAllTags');
     },
