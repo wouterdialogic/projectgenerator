@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
 import questionsModule from './questions.js'
+import Modals from './Modals.js'
 
 // import cart from './modules/cart'
 // import products from './modules/products'
@@ -13,14 +14,16 @@ const debug = process.env.NODE_ENV !== 'production'
 
 export default new Vuex.Store({
     modules: {
-        //questionsModule,
+        Modals,
     },
+
     state: {
         count: 1,
         questions: [],
         current_question: {},
         tags: [],
         modal_level: 1,
+        open_model: [],
     },
 
   // actions

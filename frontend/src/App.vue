@@ -2,6 +2,7 @@
   <div id="app" class="container mx-auto px-4">
     <div id="nav" class="center">
       <router-link to="/">Home</router-link> |
+      <router-link to="/TommAI">TommAI</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/lalala">Lalala</router-link> | 
       <router-link to="/projects">Projects</router-link> | 
