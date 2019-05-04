@@ -3,6 +3,7 @@
     <div id="nav" class="center">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
+      <router-link to="/tiptap">TipTap</router-link> |
       <router-link to="/lalala">Lalala</router-link> | 
       <router-link to="/projects">Projects</router-link> | 
       <router-link to="/MultipleViews">MultipleViews</router-link> | 

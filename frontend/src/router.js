@@ -7,6 +7,7 @@ import Projects from './views/Projects.vue'
 import MultipleViews from './views/MultipleViews.vue'
 import Dragging from './views/Dragging.vue'
 import BasicApplication from "./views/BasicApplication.vue"
+import TipTapView from "./views/TipTapView.vue"
 
 Vue.use(Router)
 
@@ -32,6 +33,11 @@ export default new Router({
       path: '/dragging',
       name: 'Dragging',
       component: Dragging
+    },
+    {
+      path: '/tiptap',
+      name: 'TipTapView',
+      component: TipTapView
     },
     {
       path: '/projects',
