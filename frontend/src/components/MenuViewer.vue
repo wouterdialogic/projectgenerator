@@ -2,9 +2,9 @@
   <div class="menuviewercomponent h-full ">
     <h3>{{msg}}</h3>
     <div v-for="item of menu_items" :key="item.name">
-      <p class="text-black">{{item.name}}</p>
+      <!-- <p class="text-black">{{item.name}}</p> -->
       <button v-on:click="$emit('set_active_menu_items', item.id)">
-  Enlarge text
+  {{item.name}}
 </button>
     </div>
   </div>

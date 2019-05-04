@@ -46,6 +46,27 @@ let defaultConfig = require('tailwindcss/defaultConfig')()
 let colors = {
   'transparent': 'transparent',
 
+  //https://www.nordtheme.com/docs/colors-and-palettes
+  'polar-darker': '#2E3440',
+  'polar-dark': '#3B4252',
+  'polar': '#434C5E',
+  'polar-light': '#4C566A',
+
+'snow-dark': '#D8DEE9',
+'snow': '#E5E9F0',
+'snow-light': '#ECEFF4',
+
+'frost-green': '#8FBCBB',
+'frost-blue': '#88C0D0',
+'frost-dark': '#81A1C1',
+'frost-darker': '#5E81AC',
+
+'aurora-red': '#BF616A',
+'aurora-orange': '#D08770',
+'aurora-yellow': '#EBCB8B',
+'aurora-green': '#A3BE8C',
+'aurora-pink': '#B48EAD',
+
   'smoke-darkest': 'rgba(0, 0, 0, 0.9)',
   'smoke-darker': 'rgba(0, 0, 0, 0.75)',
   'smoke-dark': 'rgba(0, 0, 0, 0.6)',

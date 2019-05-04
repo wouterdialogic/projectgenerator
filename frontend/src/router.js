@@ -8,6 +8,7 @@ import MultipleViews from './views/MultipleViews.vue'
 import Dragging from './views/Dragging.vue'
 import BasicApplication from "./views/BasicApplication.vue"
 import TipTapView from "./views/TipTapView.vue"
+import TommAI from "./views/TommAI.vue"
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/BasicApplication',
       name: 'BasicApplication',
       component: BasicApplication
+    },
+    {
+      path: '/TOMMAI',
+      name: 'TOMMAI',
+      component: TommAI
     },
     {
       path: '/dragging',
